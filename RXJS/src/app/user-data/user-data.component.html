@@ -1,0 +1,27 @@
+<div *ngIf="user" class="container">
+  <h2> {{ user.username }}</h2>
+  <div class="row">
+    <!-- Columna 1 -->
+    <div class="col-md-6">
+      
+      <p><i class="bi bi-person-fill"></i> <strong>Nombre:</strong> {{ user.firstName }} {{ user.lastName }}</p>
+      <p><i class="bi bi-calendar-fill"></i> <strong>Edad:</strong> {{ user.age }}</p>
+      <p>
+        <i *ngIf="user.gender === 'male'" class="bi bi-gender-male"></i>
+        <i *ngIf="user.gender === 'female'" class="bi bi-gender-female"></i>
+        <i *ngIf="user.gender !== 'male' && user.gender !== 'female'" class="bi bi-gender-ambiguous"></i>
+        <strong>Género:</strong> {{ user.gender }}
+      </p>
+    </div>
+    <!-- Columna 2 -->
+    <div class="col-md-6">
+      <p><i class="bi bi-envelope-fill"></i> <strong>Email:</strong> {{ user.email }}</p>
+      <p><i class="bi bi-telephone-fill"></i> <strong>Teléfono:</strong> {{ user.phone }}</p>
+      <p><i class="bi bi-geo-alt-fill"></i><strong>Universidad:</strong> {{ user.university }}</p>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="!user">
+  <p>No se encontraron datos del usuario.</p>
+</div>
