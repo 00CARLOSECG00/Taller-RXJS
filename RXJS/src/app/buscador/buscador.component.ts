@@ -33,6 +33,7 @@ export class BuscadorComponent {
           this.usuario = UsuarioEncontrado; 
           this.usuarioChange.emit(UsuarioEncontrado); 
           this.buscarPosts(UsuarioEncontrado.id); 
+          
         } else {
           this.usuarioChange.emit(null); 
         }

@@ -24,6 +24,7 @@ export class AppComponent {
   }
   onPostsChange(posts: Post[] | null){
     this.posts=posts;
+
   }
   
 }

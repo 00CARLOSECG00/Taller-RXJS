@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Post } from '../interfaces/post';
+import {Reaction} from'../interfaces/reaction'
 
 @Component({
   selector: 'app-user-posts',
@@ -10,5 +11,6 @@ import { Post } from '../interfaces/post';
   styleUrls: ['./user-posts.component.css'] 
 })
 export class UserPostsComponent {
-  @Input() posts: Post[] | null = null;
+  @Input() posts: Post[] | null = null;  
+  
 }
