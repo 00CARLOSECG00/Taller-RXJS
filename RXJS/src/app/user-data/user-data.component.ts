@@ -3,14 +3,25 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../user.service';
 
+
+
+import { RouterOutlet } from '@angular/router';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { User } from '../interfaces/user.interface';
+import { userInfo } from 'os';
+
 @Component({
   selector: 'app-user-data',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,RouterOutlet,HttpClientModule],
   templateUrl: './user-data.component.html',
   styleUrl: './user-data.component.css',
 })
 export class UserDataComponent {
+  ROOT_URL = "https://dummyjson.com";
+  txtUser: string = "";
+  /*
   //@Input() user: any;
   user: any =     {
     "id": 1,
@@ -82,6 +93,23 @@ export class UserDataComponent {
     },
     "role": "admin" // or "moderator", or "user"
   }
+  */
+  constructor(private http: HttpClient) {}
 
-  constructor(private userService: UserService) {}
+  user$: Observable<any> = new Observable();
+  usuario: User | null = null;
+
+  searchUser() {
+    this.http.get(`${this.ROOT_URL}/users`).subscribe({
+      next: (response: any) => {
+        const users = response.users; 
+        if(response){
+          this.usuario = users.find((user: any) => user.username === this.txtUser);
+        }else{
+          this.usuario = null;
+        }
+      }
+    });
+
+  }
 }

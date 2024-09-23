@@ -1,27 +1,32 @@
-<div *ngIf="user" class="container">
-  <h2> {{ user.username }}</h2>
+<form #form="ngForm" (ngSubmit)="searchUser()">
+  <label for="username">Usuario: </label>
+  <input type="text"name="username" [(ngModel)]="txtUser" name="username">
+  <button type="submit">Buscar Usuario</button>
+</form>
+<div *ngIf="usuario" class="container">
+  <h2> {{ usuario.username }}</h2>
   <div class="row">
     <!-- Columna 1 -->
     <div class="col-md-6">
       
-      <p><i class="bi bi-person-fill"></i> <strong>Nombre:</strong> {{ user.firstName }} {{ user.lastName }}</p>
-      <p><i class="bi bi-calendar-fill"></i> <strong>Edad:</strong> {{ user.age }}</p>
+      <p><i class="bi bi-person-fill"></i> <strong>Nombre:</strong> {{ usuario.firstName }} {{ usuario.lastName }}</p>
+      <p><i class="bi bi-calendar-fill"></i> <strong>Edad:</strong> {{ usuario.age }}</p>
       <p>
-        <i *ngIf="user.gender === 'male'" class="bi bi-gender-male"></i>
-        <i *ngIf="user.gender === 'female'" class="bi bi-gender-female"></i>
-        <i *ngIf="user.gender !== 'male' && user.gender !== 'female'" class="bi bi-gender-ambiguous"></i>
-        <strong>Género:</strong> {{ user.gender }}
+        <i *ngIf="usuario.gender === 'male'" class="bi bi-gender-male"></i>
+        <i *ngIf="usuario.gender === 'female'" class="bi bi-gender-female"></i>
+        <i *ngIf="usuario.gender !== 'male' && usuario.gender !== 'female'" class="bi bi-gender-ambiguous"></i>
+        <strong>Género:</strong> {{ usuario.gender }}
       </p>
     </div>
     <!-- Columna 2 -->
     <div class="col-md-6">
-      <p><i class="bi bi-envelope-fill"></i> <strong>Email:</strong> {{ user.email }}</p>
-      <p><i class="bi bi-telephone-fill"></i> <strong>Teléfono:</strong> {{ user.phone }}</p>
-      <p><i class="bi bi-geo-alt-fill"></i><strong>Universidad:</strong> {{ user.university }}</p>
+      <p><i class="bi bi-envelope-fill"></i> <strong>Email:</strong> {{ usuario.email }}</p>
+      <p><i class="bi bi-telephone-fill"></i> <strong>Teléfono:</strong> {{ usuario.phone }}</p>
+      <p><i class="bi bi-geo-alt-fill"></i><strong>Universidad:</strong> {{ usuario.university }}</p>
     </div>
   </div>
 </div>
 
-<div *ngIf="!user">
+<div *ngIf="!usuario">
   <p>No se encontraron datos del usuario.</p>
 </div>
