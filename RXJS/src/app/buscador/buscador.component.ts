@@ -47,6 +47,12 @@ export class BuscadorComponent {
       next: (response: any) => {
         this.posts = response.posts; 
         this.postsChange.emit(this.posts); 
+        // Llamar a obtenerComentarios para cada post
+        if (this.posts) {
+          this.posts.forEach(post => {
+            this.obtenerComentarios(post); 
+          });
+        }
       },
       error: (err) => {
         this.posts = null; 
@@ -54,4 +60,17 @@ export class BuscadorComponent {
       }
     });
   }
+
+
+  obtenerComentarios(post: Post) {
+    this.http.get(`${this.ROOT_URL}/comments/post/${post.id}`).subscribe({
+        next: (response: any) => {
+            post.comments = response.comments;
+        },
+        error: (err) => {
+            console.error(`Error al obtener comentarios para el post ${post.id}:`, err);
+            post.comments = [];
+        }
+    });
+}
 }
