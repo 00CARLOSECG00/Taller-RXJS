@@ -1,2 +1,3 @@
-<app-buscador (usuarioChange)="onUsuarioChange($event)"></app-buscador>
+<app-buscador (usuarioChange)="onUsuarioChange($event)" (postsChange)="onPostsChange($event)"></app-buscador>
 <app-user-data [usuario]="usuario"></app-user-data>
+<app-user-posts [posts]="posts"></app-user-posts>
