@@ -1,8 +1,3 @@
-<form #form="ngForm" (ngSubmit)="searchUser()">
-  <label for="username">Usuario: </label>
-  <input type="text"name="username" [(ngModel)]="txtUser" name="username">
-  <button type="submit">Buscar Usuario</button>
-</form>
 <div *ngIf="usuario" class="container">
   <h2> {{ usuario.username }}</h2>
   <div class="row">
