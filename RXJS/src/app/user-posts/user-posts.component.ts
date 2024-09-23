@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Post } from '../interfaces/post';
-import {Reaction} from'../interfaces/reaction'
+import { Comment} from '../interfaces/comment';
 
 @Component({
   selector: 'app-user-posts',
@@ -10,7 +10,19 @@ import {Reaction} from'../interfaces/reaction'
   templateUrl: './user-posts.component.html',
   styleUrls: ['./user-posts.component.css'] 
 })
-export class UserPostsComponent {
-  @Input() posts: Post[] | null = null;  
-  
+export class UserPostsComponent implements OnInit {
+  @Input() posts: Post[] | null = null;
+
+  ngOnInit() {
+    this.logPosts();
+  }
+
+  logPosts() {
+    if (this.posts) {	
+      console.log('Posts en UserPostsComponent:', this.posts);
+      this.posts.forEach((post) => {
+        console.log(`Comentarios para el post ${post.id}:`, post.comments);
+      });
+    }
+  }
 }

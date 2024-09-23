@@ -1,27 +1,43 @@
-<div *ngIf="usuario" class="container">
-  <h2> {{ usuario.username }}</h2>
+<div *ngIf="usuario" class="container bg-light p-4 rounded shadow-sm">
+  <h2 class="text-center mb-4">Perfil de {{ usuario.username }}</h2>
+  
   <div class="row">
+    <!-- Columna de imagen -->
+    <div class="col-md-4 text-center">
+      <img [src]="usuario.image" alt="{{ usuario.username }}" class="img-fluid rounded-circle" style="width: 150px; height: 150px;">
+    </div>
+
     <!-- Columna 1 -->
-    <div class="col-md-6">
-      
-      <p><i class="bi bi-person-fill"></i> <strong>Nombre:</strong> {{ usuario.firstName }} {{ usuario.lastName }}</p>
-      <p><i class="bi bi-calendar-fill"></i> <strong>Edad:</strong> {{ usuario.age }}</p>
+    <div class="col-md-4">
+      <p><i class="bi bi-person-fill me-2 text-primary"></i> 
+        <strong>Nombre:</strong> {{ usuario.firstName }} {{ usuario.lastName }}
+      </p>
+      <p><i class="bi bi-calendar-fill me-2 text-primary"></i> 
+        <strong>Edad:</strong> {{ usuario.age }}
+      </p>
       <p>
-        <i *ngIf="usuario.gender === 'male'" class="bi bi-gender-male"></i>
-        <i *ngIf="usuario.gender === 'female'" class="bi bi-gender-female"></i>
-        <i *ngIf="usuario.gender !== 'male' && usuario.gender !== 'female'" class="bi bi-gender-ambiguous"></i>
+        <i *ngIf="usuario.gender === 'male'" class="bi bi-gender-male me-2 text-primary"></i>
+        <i *ngIf="usuario.gender === 'female'" class="bi bi-gender-female me-2 text-danger"></i>
+        <i *ngIf="usuario.gender !== 'male' && usuario.gender !== 'female'" class="bi bi-gender-ambiguous me-2 text-secondary"></i>
         <strong>Género:</strong> {{ usuario.gender }}
       </p>
     </div>
+
     <!-- Columna 2 -->
-    <div class="col-md-6">
-      <p><i class="bi bi-envelope-fill"></i> <strong>Email:</strong> {{ usuario.email }}</p>
-      <p><i class="bi bi-telephone-fill"></i> <strong>Teléfono:</strong> {{ usuario.phone }}</p>
-      <p><i class="bi bi-geo-alt-fill"></i><strong>Universidad:</strong> {{ usuario.university }}</p>
+    <div class="col-md-4">
+      <p><i class="bi bi-envelope-fill me-2 text-primary"></i> 
+        <strong>Email:</strong> {{ usuario.email }}
+      </p>
+      <p><i class="bi bi-telephone-fill me-2 text-primary"></i> 
+        <strong>Teléfono:</strong> {{ usuario.phone }}
+      </p>
+      <p><i class="bi bi-geo-alt-fill me-2 text-primary"></i> 
+        <strong>Universidad:</strong> {{ usuario.university }}
+      </p>
     </div>
   </div>
 </div>
 
-<div *ngIf="!usuario">
-  <p>No se encontraron datos del usuario.</p>
+<div *ngIf="!usuario" class="container bg-light p-4 rounded shadow-sm text-center">
+  <p class="text-danger"><i class="bi bi-exclamation-circle-fill me-2"></i>No se encontraron datos del usuario.</p>
 </div>

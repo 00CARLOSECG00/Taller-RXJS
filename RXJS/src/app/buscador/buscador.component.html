@@ -1,5 +1,17 @@
-<form #form="ngForm" (ngSubmit)="searchUser()">
-    <label for="username">Usuario: </label>
-    <input type="text" name="username" [(ngModel)]="txtUser" required>
-    <button type="submit">Buscar Usuario</button>
-</form>
+<div class="container">
+    <form #form="ngForm" (ngSubmit)="searchUser()" class="form-busqueda">
+        <div class="input-group">
+            <input 
+                type="text" 
+                class="form-control input-busqueda" 
+                name="username" 
+                placeholder="Buscar usuario..." 
+                aria-label="usuario@" 
+                [(ngModel)]="txtUser" 
+                required>
+            <button class="btn btn-success" type="submit">
+                <i class="bi bi-search"></i> Buscar
+            </button>
+        </div>
+    </form>
+</div>

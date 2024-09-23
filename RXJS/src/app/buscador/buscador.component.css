@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el formulario */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+}
+
+.form-busqueda {
+    margin-top: 2rem; /* Ajusta el margen superior según necesites */
+    display: flex; /* Para centrar el contenido interno */
+    margin-bottom: 2rem;
+}
+
+.input-group {
+    display: flex; /* Asegura que los elementos del grupo se alineen correctamente */
+    justify-content: center; /* Centra el contenido del grupo de entrada */
+}
+
+.input-busqueda {
+    width: 600px; /* Cambia este valor según necesites */
+}

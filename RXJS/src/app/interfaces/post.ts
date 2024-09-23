@@ -5,5 +5,6 @@ export interface Post {
     title:string;
     body:string;
     tags:string[];
-    reactions: Reaction; 
+    reactions: Reaction;
+    comments: Comment[];
 }
