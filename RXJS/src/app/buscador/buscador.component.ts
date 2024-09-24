@@ -4,6 +4,9 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../interfaces/user.interface';
 import { Post } from '../interfaces/post';
+import { Comment } from '../interfaces/comment'; 
+import { of } from 'rxjs';
+import { catchError, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-buscador',
@@ -24,53 +27,58 @@ export class BuscadorComponent {
   constructor(private http: HttpClient) {}
 
   searchUser() {
-    this.http.get(`${this.ROOT_URL}/users`).subscribe({
-      next: (response: any) => {
+    this.http.get(`${this.ROOT_URL}/users`).pipe(
+      mergeMap((response: any) => {
         const users = response.users; 
         const UsuarioEncontrado = users.find((user: any) => user.username === this.txtUser);
 
         if (UsuarioEncontrado) {
           this.usuario = UsuarioEncontrado; 
-          this.usuarioChange.emit(UsuarioEncontrado); 
-          this.buscarPosts(UsuarioEncontrado.id); 
-          
+          this.usuarioChange.emit(UsuarioEncontrado);
+          return this.buscarPosts(UsuarioEncontrado.id);
         } else {
-          this.usuarioChange.emit(null); 
+          this.usuarioChange.emit(null);
+          return of(null);
         }
-      }
-    });
+      }),
+      catchError((err) => {
+        console.error('Error en la búsqueda de usuario:', err);
+        this.usuarioChange.emit(null);
+        return of(null);
+      })
+    ).subscribe();
   }
 
-  
   buscarPosts(userId: number) {
-    this.http.get(`${this.ROOT_URL}/posts/user/${userId}`).subscribe({
-      next: (response: any) => {
+    return this.http.get(`${this.ROOT_URL}/posts/user/${userId}`).pipe(
+      mergeMap((response: any) => {
         this.posts = response.posts; 
         this.postsChange.emit(this.posts); 
-        // Llamar a obtenerComentarios para cada post
+
         if (this.posts) {
-          this.posts.forEach(post => {
-            this.obtenerComentarios(post); 
-          });
+          // Llama a obtenerComentarios para cada post
+          return of(...this.posts.map(post => this.obtenerComentarios(post)));
         }
-      },
-      error: (err) => {
+        return of(null);
+      }),
+      catchError((err) => {
         this.posts = null; 
         this.postsChange.emit(null);
-      }
-    });
+        console.error('Error al buscar posts:', err);
+        return of(null);
+      })
+    );
   }
 
-
   obtenerComentarios(post: Post) {
-    this.http.get(`${this.ROOT_URL}/comments/post/${post.id}`).subscribe({
-        next: (response: any) => {
-            post.comments = response.comments;
-        },
-        error: (err) => {
-            console.error(`Error al obtener comentarios para el post ${post.id}:`, err);
-            post.comments = [];
-        }
+    return this.http.get<Comment[]>(`${this.ROOT_URL}/comments/post/${post.id}`).pipe(
+      catchError((err) => {
+        console.error(`Error al obtener comentarios para el post ${post.id}:`, err);
+        post.comments = []; 
+        return of([] as Comment[]); 
+      })
+    ).subscribe(comments => {
+      post.comments = comments;
     });
-}
+  }
 }
